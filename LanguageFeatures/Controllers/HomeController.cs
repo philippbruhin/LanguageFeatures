@@ -9,17 +9,14 @@ namespace LanguageFeatures.Controllers
     public class HomeController : Controller
     {
         // GET: /<controller>/
-        public IActionResult Index()
+        public ViewResult Index()
         {
-            List<string> results = new List<string>();
-            foreach (Product p in Product.GetProducts())
+            Dictionary<string, Product> products = new Dictionary<string, Product>
             {
-                string name = p?.Name;
-                decimal? price = p?.Price;
-                string relatedName = p?.Related?.Name;
-                results.Add(string.Format("Name: {0}, Price: {1}, Related: {2}", name, price, relatedName));
-            }
-            return View(results);
+                ["Kayak"] = new Product { Name = "Kayak", Price = 275M },
+                ["Lifejacket"] = new Product { Name = "Lifejacket", Price = 48.95M }
+            };
+            return View("Index", products.Keys);
         }
     }
 }
