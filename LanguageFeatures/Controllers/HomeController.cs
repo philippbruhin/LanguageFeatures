@@ -11,12 +11,9 @@ namespace LanguageFeatures.Controllers
         // GET: /<controller>/
         public ViewResult Index()
         {
-            Dictionary<string, Product> products = new Dictionary<string, Product>
-            {
-                ["Kayak"] = new Product { Name = "Kayak", Price = 275M },
-                ["Lifejacket"] = new Product { Name = "Lifejacket", Price = 48.95M }
-            };
-            return View("Index", products.Keys);
+            ShoppingCart cart = new ShoppingCart {Products = Product.GetProducts()};
+            decimal cartTotal = cart.TotalPrices();
+            return View("Index", new string[] {$"Total: {cartTotal:C2}"});
         }
     }
 }
